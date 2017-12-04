@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    public const string PLAY_SCENE = "PlayScene";
-
     private static GameManager _instance;
     public static GameManager Instance
     {
@@ -33,6 +31,16 @@ public class GameManager : MonoBehaviour
     private List<MapChunk> _chunkDatabase;
 
     [SerializeField]
+    private List<Item> _itemDatabase;
+    public List<Item> ItemDatabase
+    {
+        get
+        {
+            return _itemDatabase;
+        }
+    }
+
+    [SerializeField]
     private PlayerEntity _player;
     public PlayerEntity Player
     {
@@ -42,16 +50,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private House _house;
+    public House House
+    {
+        get
+        {
+            return _house;
+        }
+    }
+
     private Grid<ChunkType> _mapGrid;
 
     private Dictionary<Int2, MapChunk> _mapInstances;
+    public Dictionary<Int2, MapChunk> MapInstances
+    {
+        get
+        {
+            return _mapInstances;
+        }
+    }
 
     private List<SpriteRenderer> _mapObjects;
 
     private MapChunk _currentChunkInstance;
 
-
     private bool _gameInitialized = false;
+
+    [SerializeField]
+    private bool _skipIntro;
 
     private void Start()
     {
@@ -75,7 +102,25 @@ public class GameManager : MonoBehaviour
 
         _mapObjects.Add(_player.PlayerRenderer);
 
+        Player.transform.position = _house.RespwanReference;
+
         _gameInitialized = true;
+
+        if (!_skipIntro)
+        {
+            UIManager.Instance.DialogueView.ShowText("Sussie has been my friend since forever...", () => {
+
+                UIManager.Instance.DialogueView.ShowText("now she is weak and old and her puppies are lost outside, I must help her children!", () =>
+                {
+                    UIManager.Instance.DialogueView.ShowText("the only problem is ... they are TOO MANY! I have to be careful when carrying them.", () => {
+
+                        UIManager.Instance.DialogueView.Hide();
+
+                    });
+                });
+
+            });
+        }
     }
 
     private void Update()
@@ -195,4 +240,11 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+}
+
+[System.Serializable]
+public class TeleportTarget
+{
+    public string Name;
+    public GameObject Target;
 }

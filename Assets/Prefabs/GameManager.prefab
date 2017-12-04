@@ -94,4 +94,8 @@ MonoBehaviour:
   - {fileID: 114521666965854068, guid: b7b6839b5349aed49973ea0bb611a525, type: 2}
   - {fileID: 114825091729865290, guid: 0be73f7aaafa0cd4093c899867a61871, type: 2}
   - {fileID: 114628163525224554, guid: bde488f70c1317349b56a09b9ecef552, type: 2}
+  _itemDatabase:
+  - {fileID: 11400000, guid: 9afbffd22aa8b65429f6d4ee4fdf4eb1, type: 2}
   _player: {fileID: 0}
+  _house: {fileID: 0}
+  _skipIntro: 1

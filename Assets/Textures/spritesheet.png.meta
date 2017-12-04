@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 085e34a79c4fb114ab65ffeaee5e091d
-timeCreated: 1512284448
+timeCreated: 1512341151
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,11 @@ TextureImporter:
     21300010: spritesheet_5
     21300012: spritesheet_6
     21300014: spritesheet_7
+    21300016: spritesheet_8
+    21300018: spritesheet_9
+    21300020: spritesheet_10
+    21300022: spritesheet_11
+    21300024: spritesheet_12
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -133,9 +138,9 @@ TextureImporter:
       name: spritesheet_4
       rect:
         serializedVersion: 2
-        x: 7
+        x: 5
         y: 69
-        width: 65
+        width: 73
         height: 25
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -176,6 +181,71 @@ TextureImporter:
         y: 38
         width: 38
         height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 103
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 116
+        width: 38
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 101
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 101
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 32
+        width: 30
+        height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

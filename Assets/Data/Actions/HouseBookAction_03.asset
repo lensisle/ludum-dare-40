@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee6c4f2877167534fb5f967f15a5cf4e, type: 3}
+  m_Name: HouseBookAction_03
+  m_EditorClassIdentifier: 
+  DestroyAfterFinish: 0
+  ChildAction: {fileID: 11400000, guid: 20a0b3d8d7757cc40b0a94a95fe2c3e7, type: 2}
+  _text: 2) Sometimes you can find useful things exploring, but be careful with the
+    cold
+  _closeDialogueOnFinish: 0
