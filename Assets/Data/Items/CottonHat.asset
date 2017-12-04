@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: CottonHat
   DisplayName: Cotton Hat
-  Stats: []
+  Stats:
+  - Type: 3
+    Value: 1
   Icon: {fileID: 0}
-  SpawnProbability: 0

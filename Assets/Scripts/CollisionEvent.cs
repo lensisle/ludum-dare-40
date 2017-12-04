@@ -7,6 +7,12 @@ public class CollisionEvent : MonoBehaviour
     [SerializeField]
     private BaseAction _action;
 
+    [SerializeField]
+    private GameObject _container;
+
+    [SerializeField]
+    private bool _destroyOnTrigger;
+
     private bool _canPressAction;
     private string _colliderName;
 
@@ -23,7 +29,19 @@ public class CollisionEvent : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Z) && _colliderName == "Player")
             {
-                _action.ExecuteAction();
+                if (_destroyOnTrigger)
+                {
+                    _action.ExecuteAction(() => {
+
+                        _container.SetActive(false);
+                        GameManager.Instance.Player.Exclamation.gameObject.SetActive(false);
+
+                    });
+                }
+                else
+                {
+                    _action.ExecuteAction();
+                }
             }
         }
     }

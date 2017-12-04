@@ -62,11 +62,22 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private StatsView _statsView;
+    public StatsView StatsView
+    {
+        get
+        {
+            return _statsView;
+        }
+    }
+
     private void Start()
     {
         _currentState = UIManagerState.Available;
         _inventoryView.gameObject.SetActive(false);
         _dialogueView.gameObject.SetActive(false);
+        _statsView.gameObject.SetActive(true);
     }
 
     public void SetState(UIManagerState state)

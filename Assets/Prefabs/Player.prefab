@@ -106,9 +106,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.0044813454, y: -0.15304089}
+  m_Offset: {x: -0.00056529045, y: -0.4056319}
   serializedVersion: 2
-  m_Size: {x: 1.0016876, y: 0.66547054}
+  m_Size: {x: 1.1191719, y: 0.62239313}
 --- !u!95 &95176442482315594
 Animator:
   serializedVersion: 3
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 114644793678217246}
-  _speed: 5
+  _speed: 1.5
   _cameraFollow: 1
   _playerRenderer: {fileID: 212101289388118124}
   _initialStatsData: {fileID: 11400000, guid: ef2fb15432b844b44924a85a8f365d12, type: 2}
@@ -159,8 +159,6 @@ MonoBehaviour:
   RightPressed: 0
   UpPressed: 0
   DownPressed: 0
-  ActionPressed: 0
-  MenuPressed: 0
   Active: 0
 --- !u!212 &212017597955680132
 SpriteRenderer:

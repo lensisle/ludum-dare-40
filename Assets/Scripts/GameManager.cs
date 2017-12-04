@@ -61,6 +61,13 @@ public class GameManager : MonoBehaviour
     }
 
     private Grid<ChunkType> _mapGrid;
+    public Grid<ChunkType> MapGrid
+    {
+        get
+        {
+            return _mapGrid;
+        }
+    }
 
     private Dictionary<Int2, MapChunk> _mapInstances;
     public Dictionary<Int2, MapChunk> MapInstances
@@ -79,6 +86,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private bool _skipIntro;
+
+    public int PuppiesGoal;
 
     private void Start()
     {
@@ -106,6 +115,8 @@ public class GameManager : MonoBehaviour
 
         _gameInitialized = true;
 
+        Player.Initialize();
+
         if (!_skipIntro)
         {
             UIManager.Instance.DialogueView.ShowText("Sussie has been my friend since forever...", () => {
@@ -123,6 +134,46 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Reboot()
+    {
+        Vector3 playerPos = Player.transform.position;
+        Vector3 targetPos = House.RespwanReference;
+
+        Player.transform.position = new Vector3(targetPos.x, targetPos.y, playerPos.z);
+
+        Player.PlayerAnimator.SetTrigger("IdleDown");
+
+        Player.PlayerInput.Active = true;
+
+        foreach (Transform child in _mapContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        _mapInstances = new Dictionary<Int2, MapChunk>();
+        _mapObjects = new List<SpriteRenderer>();
+
+        GenerateMap();
+        RenderMap();
+
+        _mapObjects.Sort((a, b) =>
+        {
+            float topVal = b.transform.position.y - (b.bounds.size.y / 2);
+            float bottomVal = a.transform.position.y - (a.bounds.size.y / 2);
+            return topVal.CompareTo(bottomVal);
+        });
+
+        for (var i = _mapObjects.Count - 1; i > 0; i--)
+        {
+            _mapObjects[i].sortingOrder = i;
+        }
+
+        UIManager.Instance.DialogueView.ShowText("You wake up not knowing how you appeared here...", () =>
+        {
+            UIManager.Instance.DialogueView.Hide();
+        });
+    }
+
     private void Update()
     {
         if (!_gameInitialized)
@@ -136,7 +187,9 @@ public class GameManager : MonoBehaviour
         int mapWidth = Random.Range(3, 5);
         int mapHeight = Random.Range(4, 12);
 
-        _mapGrid = new Grid<ChunkType>(mapWidth, mapHeight);
+        PuppiesGoal = 5 * 10;
+
+        _mapGrid = new Grid<ChunkType>(5, 10);
 
         for (var i = 0; i < _mapGrid.Width; i++)
         {

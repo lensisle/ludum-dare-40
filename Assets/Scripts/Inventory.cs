@@ -5,17 +5,21 @@ using UnityEngine;
 public class Inventory
 {
     private Dictionary<string, Item> _items;
-    private int _addedItems;
 
     public Inventory()
     {
         _items = new Dictionary<string, Item>();
     }
 
-    public void AddItem(Item item)
+    public bool AddItem(Item item)
     {
-        _addedItems += 1;
+        if (_items.ContainsKey(item.Name))
+        {
+            return false;
+        }
+        
         _items.Add(item.Name, item);
+        return true;
     }
 
     public void RemoveItem(string name)

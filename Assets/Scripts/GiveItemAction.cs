@@ -5,10 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GiveItemAction", menuName = "Data/Actions/Give Item", order = 3)]
 public class GiveItemAction : BaseAction
 {
+    public ItemRatity ItemRatity;
     public string ForceItemName;
     private string _givenItem = "";
 
-    public override void ExecuteAction()
+    public override void ExecuteAction(System.Action onFinish)
     {
         if (!string.IsNullOrEmpty(ForceItemName))
         {
@@ -19,8 +20,8 @@ public class GiveItemAction : BaseAction
                 return;
             }
 
-            GameManager.Instance.Player.Inventory.AddItem(target);
-            _givenItem = target.DisplayName;
+            bool itemReceived = GameManager.Instance.Player.Inventory.AddItem(target);
+            _givenItem = target.DisplayName + (itemReceived == false ? " but you already have one." : "");
         }
         else
         {
@@ -30,24 +31,29 @@ public class GiveItemAction : BaseAction
                 return;
             }
 
-            int maxCount = GameManager.Instance.ItemDatabase.Count;
-            Item target = GameManager.Instance.ItemDatabase[Random.Range(0, maxCount)];
+            List<Item> targets = GameManager.Instance.ItemDatabase.FindAll(x => x.Rarity.Equals(ItemRatity));
+            Item target = targets[Random.Range(0, targets.Count)];
             if (target == null)
             {
                 Debug.Log("Item not found");
                 return;
             }
 
-            GameManager.Instance.Player.Inventory.AddItem(target);
+            bool itemReceived =  GameManager.Instance.Player.Inventory.AddItem(target);
 
-            _givenItem = target.DisplayName;
+            _givenItem = target.DisplayName + (itemReceived == false ? " but you already have one." : "");
         }
 
         if(!string.IsNullOrEmpty(_givenItem))
         {
-            UIManager.Instance.DialogueView.ShowText("You found a " + _givenItem, () =>
+            UIManager.Instance.DialogueView.ShowText("You found: " + _givenItem, () =>
             {
                 UIManager.Instance.DialogueView.Hide();
+                if (onFinish != null)
+                {
+                    onFinish();
+                }
+
             });
         }
     }

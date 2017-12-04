@@ -11,7 +11,7 @@ public class DialogueAction : BaseAction
     [SerializeField]
     private bool _closeDialogueOnFinish;
     
-    public override void ExecuteAction()
+    public override void ExecuteAction(System.Action onFinish)
     {
         UIManager.Instance.DialogueView.ShowText(_text, () =>
         {

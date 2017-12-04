@@ -1338,6 +1338,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _action: {fileID: 11400000, guid: 0f9c2dfcc31875c4c99f84ca0ae9fabc, type: 2}
+  _container: {fileID: 0}
+  _destroyOnTrigger: 0
 --- !u!114 &114455055622480970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1392,6 +1394,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _action: {fileID: 11400000, guid: 88030b239f954214abd5ac24233d5470, type: 2}
+  _container: {fileID: 0}
+  _destroyOnTrigger: 0
 --- !u!114 &114821114472186590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1404,6 +1408,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _action: {fileID: 11400000, guid: ee79e96d1f4b77b42b8c582f03d030d2, type: 2}
+  _container: {fileID: 0}
+  _destroyOnTrigger: 0
 --- !u!212 &212002894297845562
 SpriteRenderer:
   m_ObjectHideFlags: 1

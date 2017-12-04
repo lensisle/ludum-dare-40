@@ -11,7 +11,7 @@ public class TeleportAction : BaseAction
 
     public bool IsInsideHouse;
 
-    public override void ExecuteAction()
+    public override void ExecuteAction(System.Action onFinish)
     {
         if (IsInsideHouse)
         {

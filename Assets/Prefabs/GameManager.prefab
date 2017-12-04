@@ -96,6 +96,9 @@ MonoBehaviour:
   - {fileID: 114628163525224554, guid: bde488f70c1317349b56a09b9ecef552, type: 2}
   _itemDatabase:
   - {fileID: 11400000, guid: 9afbffd22aa8b65429f6d4ee4fdf4eb1, type: 2}
+  - {fileID: 11400000, guid: c05d2acf5b8bc9f4c940d091e3772c8e, type: 2}
+  - {fileID: 11400000, guid: 9f623f180a2192e4599401f97a9fe328, type: 2}
   _player: {fileID: 0}
   _house: {fileID: 0}
   _skipIntro: 1
+  PuppiesGoal: 0

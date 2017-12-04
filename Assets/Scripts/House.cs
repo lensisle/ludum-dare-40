@@ -59,20 +59,24 @@ public class House : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        UIManager.Instance.StatsView.PlayerStatsContainer.SetActive(false);
         Debug.Log("Entered to house");
         _playerInHouse = true;
         Camera.main.backgroundColor = Color.black;
         Camera.main.GetComponent<CameraParticle>().SetParticlesVisible(false);
         _chunkObjects.Add(GameManager.Instance.Player.PlayerRenderer);
+        GameManager.Instance.Player.SetIsStatVulnerable(false);
         SortPlayer();
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
+        UIManager.Instance.StatsView.PlayerStatsContainer.SetActive(true);
         Debug.Log("Leaved house");
         _playerInHouse = false;
         Camera.main.backgroundColor = Color.white;
         Camera.main.GetComponent<CameraParticle>().SetParticlesVisible(true);
         _chunkObjects.Add(GameManager.Instance.Player.PlayerRenderer);
+        GameManager.Instance.Player.SetIsStatVulnerable(true);
     }
 }

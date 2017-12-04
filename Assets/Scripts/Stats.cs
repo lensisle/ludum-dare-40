@@ -8,6 +8,7 @@ public enum StatType
     Strenght,
     Cold,
     ColdResistance,
+    Speed
 }
 
 [System.Serializable]

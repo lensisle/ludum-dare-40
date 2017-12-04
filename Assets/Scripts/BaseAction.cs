@@ -8,5 +8,5 @@ public abstract class BaseAction : ScriptableObject
 
     public BaseAction ChildAction;
 
-    public abstract void ExecuteAction();
+    public abstract void ExecuteAction(System.Action onFinish = null);
 }

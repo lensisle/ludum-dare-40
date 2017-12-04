@@ -46,13 +46,11 @@ public class PlayerEntity : MonoBehaviour
 
     [SerializeField]
     private Animator _playerAnimator;
-
-    private Stats _stats;
-    public Stats Stats
+    public Animator PlayerAnimator
     {
         get
         {
-            return _stats;
+            return _playerAnimator;
         }
     }
 
@@ -89,13 +87,44 @@ public class PlayerEntity : MonoBehaviour
 
     private PlayerAnimation _currentAnimation;
 
+    private int _puppiesCount;
+    public int PuppiesCount
+    {
+        get
+        {
+            return _puppiesCount;
+        }
+    }
+
+    private Item _hat;
+    private Item _boots;
+    private Item _gloves;
+
+    private int _coldLevel;
+    public int ColdLevel
+    {
+        get
+        {
+            return _coldLevel;
+        }
+    }
+
+    private int _limitColdLevel = 15;
+
 	void Start ()
     {
         _inventory = new Inventory();
+    }
+
+    public void Initialize()
+    {
         _playerInput.Active = true;
-        _stats = new Stats(_initialStatsData.InitialStatsData);
 
         _currentAnimation = PlayerAnimation.IdleDown;
+
+        _coldLevel = _limitColdLevel;
+        UpdateStatsUI();
+        UIManager.Instance.StatsView.SetPuppyCounter(_puppiesCount);
     }
 
     void Update()
@@ -103,6 +132,18 @@ public class PlayerEntity : MonoBehaviour
         if (_playerInput.Active == false || UIManager.Instance.CurrentState != UIManagerState.Available)
         {
             return;
+        }
+
+        if (_coldLevel <= 0)
+        {
+            _playerAnimator.SetTrigger("Dead");
+            UIManager.Instance.DialogueView.ShowText("You died frozen", () =>
+            {
+                _coldLevel = _limitColdLevel;
+                UIManager.Instance.DialogueView.Hide();
+                _playerInput.Active = false;
+                GameManager.Instance.Reboot();
+            });
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -120,13 +161,22 @@ public class PlayerEntity : MonoBehaviour
         {
 
             _currentColdDecreaseTime += Time.deltaTime;
-           if (_currentColdDecreaseTime >= _coldDecreaseTimeBase + _stats.GetStat(StatType.ColdResistance).Value)
+           if (_currentColdDecreaseTime >= _coldDecreaseTimeBase + GetItemsColdResistance())
            {
                 _currentColdDecreaseTime = 0;
-                _stats.SetStatValue(StatType.Cold, 1, true);
+                _coldLevel--;
+
+                float newColdFill =(float) _coldLevel / _limitColdLevel;
+
+                UIManager.Instance.StatsView.FillColdBar(newColdFill);
            }
 
         }
+    }
+
+    public void SetPuppiesCount(int count)
+    {
+        _puppiesCount = count;
     }
 
     public void SetIsStatVulnerable(bool statVulnerable)
@@ -140,6 +190,11 @@ public class PlayerEntity : MonoBehaviour
         {
             return;
         }
+
+        int bootsValue = _boots != null ? _boots.GetStatValue(StatType.Speed) : 0;
+        int glovesValue = _gloves != null ? _gloves.GetStatValue(StatType.Strenght) : 0;
+
+        _speed = Mathf.Max(0.1f, _speed + bootsValue - _puppiesCount + glovesValue);
 
         var xMovement = _playerInput.LeftPressed ? _speed * Time.deltaTime * -1 :
             _playerInput.RightPressed ? _speed * Time.deltaTime :
@@ -206,5 +261,86 @@ public class PlayerEntity : MonoBehaviour
         }
 
         transform.position = new Vector3(xMovement, yMovement, transform.position.z);
+    }
+
+    private int GetItemsColdResistance()
+    {
+        int count = 0;
+
+        if (_hat != null)
+        {
+            foreach(Stat stat in _hat.Stats)
+            {
+                if (stat.Type == StatType.ColdResistance)
+                {
+                    count += stat.Value;
+                }
+            }
+        }
+
+        if (_boots != null)
+        {
+            foreach (Stat stat in _boots.Stats)
+            {
+                if (stat.Type == StatType.ColdResistance)
+                {
+                    count += stat.Value;
+                }
+            }
+        }
+
+        if (_gloves != null)
+        {
+            foreach (Stat stat in _gloves.Stats)
+            {
+                if (stat.Type == StatType.ColdResistance)
+                {
+                    count += stat.Value;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private void UpdateStatsUI()
+    {
+        UIManager.Instance.StatsView.UpdateStat(1, GetItemsColdResistance());
+
+        if (_gloves != null)
+        {
+            UIManager.Instance.StatsView.UpdateStat(2, _gloves.GetStatValue(StatType.Strenght));
+        }
+        else
+        {
+            UIManager.Instance.StatsView.UpdateStat(2, 0);
+        }
+       
+        if (_boots != null)
+        {
+            UIManager.Instance.StatsView.UpdateStat(3, _boots.GetStatValue(StatType.Speed));
+        }
+        else
+        {
+            UIManager.Instance.StatsView.UpdateStat(3, 0);
+        }
+    }
+
+    public void EquipHat(Item hat)
+    {
+        _hat = hat;
+        UIManager.Instance.StatsView.UpdateStat(1, GetItemsColdResistance());
+    }
+
+    public void EquipGloves(Item gloves)
+    {
+        _gloves = gloves;
+        UIManager.Instance.StatsView.UpdateStat(2, _gloves.GetStatValue(StatType.Strenght));
+    }
+
+    public void EquipBoots(Item boots)
+    {
+        _boots = boots;
+        UIManager.Instance.StatsView.UpdateStat(3, _boots.GetStatValue(StatType.Speed));
     }
 }
